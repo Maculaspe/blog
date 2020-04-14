@@ -1,0 +1,100 @@
+<template>
+  <div id="add-blog">
+    <h2>Add a New Blog Post</h2>
+    <form>
+      <label>Blog Title:</label>
+      <input type="text" v-model.lazy="blog.title" required>
+      <label>Blog Content</label>
+      <textarea v-model.lazy="blog.content" cols="30" rows="10"></textarea>
+      <div id="checkboxes">
+        <label>Cars</label>
+        <input type="checkbox" value="cars" v-model="blog.categories">
+        <label>Aviation</label>
+        <input type="checkbox" value="aviation" v-model="blog.categories">
+        <label>IT</label>
+        <input type="checkbox" value="it" v-model="blog.categories">
+        <label>Electronics</label>
+        <input type="checkbox" value="electronics" v-model="blog.categories">
+      </div>
+      <label>Author:</label>
+      <select v-model="blog.author">
+        <option v-for="author in authors" v-bind:key="author">{{author}}</option>
+      </select>
+      <button v-on:click.prevent="post">Add Blog</button>
+    </form>
+    <div id="preview">
+      <h3>Preview Blog</h3>
+      <p>Blog Title: {{blog.title}}</p>
+      <p>Blog Content:</p>
+      <p>{{blog.content}}</p>
+      <p>Blog categories:</p>
+      <ul>
+        <li v-for="category in blog.categories" v-bind:key="category">{{category}}</li>
+      </ul>
+      <p>Author: {{blog.author}}</p>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      blog: {
+        title: "",
+        content: "",
+        categories: [],
+        author: "",
+      },
+      authors: ['Max', 'Anetka', 'Maksio']
+    }
+  },
+  methods: {
+    post: function() {
+      this.$http.post('')
+    }
+  }
+}
+</script>
+
+<style>
+
+  #add-blog * {
+    box-sizing: border-box;
+  }
+
+  #add-blog {
+    margin: 20px auto;
+    max-width: 500px;
+  }
+
+  label {
+    display: block;
+    margin: 20px 0 10px;
+  }
+
+  input[type="text"], textarea {
+    display: block;
+    width: 100%;
+    padding: 8px;
+  }
+
+  #preview {
+    padding: 10px 20px;
+    border: 1px dotted #ccc;
+    margin-top: 30px 0;
+  }
+
+  h3 {
+    margin-top: 10px;
+  }
+
+  #checkboxes input {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  #checkboxes label {
+    display: inline-block
+  }
+</style>
