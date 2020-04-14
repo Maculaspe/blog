@@ -1,7 +1,10 @@
 <template>
   <div id="show-blogs">
     <h1>All Blog Articles</h1>
-    <div class="single-blog"></div>
+    <div v-for="blog in blogs" :key="blog" class="single-blog">
+      <h2>{{blog.title}}</h2>
+      <article>{{blog.body}}</article>
+    </div>
   </div>
 </template>
 
@@ -9,15 +12,16 @@
 export default {
   data() {
     return {
-
+      blogs: []
     }
   },
   methods: {
 
   },
   created() {
-    this.$http.get('https://my-json-server.typicode.com/Maculaspe/blog').then(function(data){
+    this.$http.get('https://my-json-server.typicode.com/Maculaspe/blog/posts').then(function(data){
       console.log(data);
+      this.blogs = data.body.slice(0,2);
     })
   }
 }
