@@ -1,12 +1,9 @@
 <template>
   <div v-theme:column="'wide'" id="show-blogs">
-    <h1>All Blog Articles</h1>
+    <h1>List Blog Titles</h1>
     <input type="text" v-model="search" placeholder="Search blogs...">
     <div v-for="blog in filteredBlogs" :key="blog" class="single-blog">
-      <router-link v-bind:to="'/blog/' + blog.id">
-        <h2>{{blog.title | to-uppercase}}</h2>
-      </router-link>
-      <article>{{blog.content | snip}}</article>
+      <h2 v-rainbow>{{blog.title | to-uppercase}}</h2>
     </div>
   </div>
 </template>
@@ -26,18 +23,9 @@ export default {
 
   },
   created() {
-    this.$http.get('https://blog-2b307.firebaseio.com/posts.json').then(function(data){
-      return data.json();
-      // this.blogs = data.body.slice(0,3);
-    }).then(function(data){
-      var blogsArray = [];
-      for (let key in data) {
-        data[key].id = key
-        blogsArray.push(data[key])
-        // console.log(data[key]);
-      }
-      this.blogs = blogsArray;
+    this.$http.get('https://my-json-server.typicode.com/Maculaspe/blog/posts').then(function(data){
       console.log(data);
+      this.blogs = data.body.slice(0,3);
     })
   },
   computed: {
